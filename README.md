@@ -1,6 +1,6 @@
 # DartSSH 2
 
-[![pub package](https://img.shields.io/pub/v/dartssh.svg)](https://pub.dartlang.org/packages/dartssh) [![Build Status](https://travis-ci.org/GreenAppers/dartssh.svg?branch=master)](https://travis-ci.org/GreenAppers/dartssh) [![Coverage Status](https://coveralls.io/repos/github/GreenAppers/dartssh/badge.svg?branch=master)](https://coveralls.io/github/GreenAppers/dartssh?branch=master) [![documentation](https://img.shields.io/badge/Documentation-dartssh-blue.svg)](https://www.dartdocs.org/documentation/dartssh/latest/)
+[![pub package](https://img.shields.io/pub/v/dartssh2.svg)](https://pub.dartlang.org/packages/dartssh2) [![Build status](https://github.com/TerminalStudio/dartssh/actions/workflows/dart.yml/badge.svg)](https://github.com/TerminalStudio/dartssh/actions/workflows/dart.yml) [![Coverage Status](https://coveralls.io/repos/github/GreenAppers/dartssh/badge.svg?branch=master)](https://coveralls.io/github/GreenAppers/dartssh?branch=master) [![documentation](https://img.shields.io/badge/Documentation-dartssh2-blue.svg)](https://www.dartdocs.org/documentation/dartssh2/latest/)
 
 `dartssh2`  is a pure dart SSH implementation based on dartssh, with bug fixes, up-to-date dependencies and sound null safety.
 
@@ -21,7 +21,7 @@
 ## Try
 
 ```sh
-dart pub global activate dartssh2
+dart pub global activate dartssh_cli
 ```
 Then use it as regular `ssh` command.
 
