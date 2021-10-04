@@ -26,7 +26,6 @@ import 'package:dartssh2/websocket_html.dart'
 /// other secure network services over an insecure network.
 class SSHClient extends SSHTransport with SSHAgentForwarding {
   // Parameters
-  String? startupCommand;
   bool? agentForwarding, closeOnDisconnect;
   FingerprintCallback? acceptHostFingerprint;
   Uint8ListFunction? getPassword;
@@ -62,7 +61,6 @@ class SSHClient extends SSHTransport with SSHAgentForwarding {
     this.termvar = 'xterm',
     this.termWidth = 80,
     this.termHeight = 25,
-    this.startupCommand,
     bool compress = false,
     this.agentForwarding = false,
     this.closeOnDisconnect,
@@ -349,7 +347,7 @@ class SSHClient extends SSHTransport with SSHAgentForwarding {
   /// Handle accepted [MSG_SERVICE_REQUEST] sent in response to [MSG_NEWKEYS].
   void handleMSG_SERVICE_ACCEPT() {
     tracePrint?.call('<- $hostport: MSG_SERVICE_ACCEPT');
-    if (login == null || login!.isEmpty) {
+    if (login.isEmpty) {
       loginPrompts = 1;
       responseText(this, 'login: ');
     }
@@ -512,13 +510,6 @@ class SSHClient extends SSHTransport with SSHAgentForwarding {
           true,
         ),
       );
-
-      if (startupCommand?.isNotEmpty == true) {
-        sendToChannel(
-          sessionChannel!,
-          utf8.encode(startupCommand!) as Uint8List,
-        );
-      }
     }
   }
 
@@ -608,7 +599,7 @@ class SSHClient extends SSHTransport with SSHAgentForwarding {
       final pubkey = identity.getEd25519PublicKey().toRaw();
       final challenge = deriveChallenge(
         sessionId!,
-        login!,
+        login,
         'ssh-connection',
         'publickey',
         'ssh-ed25519',
@@ -631,7 +622,7 @@ class SSHClient extends SSHTransport with SSHAgentForwarding {
       final pubkey = identity.getECDSAPublicKey().toRaw();
       final challenge = deriveChallenge(
         sessionId!,
-        login!,
+        login,
         'ssh-connection',
         'publickey',
         keyType,
@@ -653,7 +644,7 @@ class SSHClient extends SSHTransport with SSHAgentForwarding {
       final pubkey = identity.getRSAPublicKey().toRaw();
       final challenge = deriveChallenge(
         sessionId!,
-        login!,
+        login,
         'ssh-connection',
         'publickey',
         'ssh-rsa',
@@ -680,7 +671,7 @@ class SSHClient extends SSHTransport with SSHAgentForwarding {
     if (loginPrompts != 0) {
       response?.call(this, b);
       bool cr = b.isNotEmpty && b.last == '\n'.codeUnits[0];
-      login = login! + String.fromCharCodes(b, 0, b.length - (cr ? 1 : 0));
+      login = login + String.fromCharCodes(b, 0, b.length - (cr ? 1 : 0));
       if (cr) {
         responseText(this, '\n');
         loginPrompts = 0;
