@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/dartssh.svg)](https://pub.dartlang.org/packages/dartssh) [![Build Status](https://travis-ci.org/GreenAppers/dartssh.svg?branch=master)](https://travis-ci.org/GreenAppers/dartssh) [![Coverage Status](https://coveralls.io/repos/github/GreenAppers/dartssh/badge.svg?branch=master)](https://coveralls.io/github/GreenAppers/dartssh?branch=master) [![documentation](https://img.shields.io/badge/Documentation-dartssh-blue.svg)](https://www.dartdocs.org/documentation/dartssh/latest/)
 
-`dartssh2`  is a pure dart SSH implementation based on dartssh with bug fixes, up-to-date dependencies and sound null safety.
+`dartssh2`  is a pure dart SSH implementation based on dartssh, with bug fixes, up-to-date dependencies and sound null safety.
 
 `dartssh2` providing first-class tunnelling primitives.
 
@@ -23,66 +23,54 @@
 ```sh
 dart pub global activate dartssh2
 ```
+Then use it as regular `ssh` command.
+
+```sh
+dartssh your-username@example.com
+```
+
+> If this doesn’t work, you might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
 
 ## Quick start - SSH client
 
-<!-- <table><tbody ><tr></tr><tr><td> -->
+<!-- CLIENT EXAMPLE BEGIN -->
 <details >
 <summary>
 <sub><b>Click to see more:</b></sub>
-<!-- <h6>Import required files</h6> -->
 
 ```dart
 import 'package:dartssh2/client.dart';
 ```
 </summary>
 <!-- <hr> -->
-<h6>Write the following HTML</h6>
+<h6>TODO</h6>
 
  ```html
-<div class="container">
-    <canvas id="myChart"></canvas>
-</div>
-```
-<h6>... and JS</h6>
-
-```js
-var data = {{ chartJSON | safe }}
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, data);
+TODO
 ```
 </details>
-<!-- </td></tr></tbody></table> -->
+<!-- CLIENT EXAMPLE END -->
 
 ## Quick start - SSH server
 
-<!-- <table><tbody ><tr></tr><tr><td> -->
+<!-- SERVER EXAMPLE BEGIN -->
 <details >
 <summary>
 <sub><b>Click to see more:</b></sub>
-<!-- <h6>Import required files</h6> -->
 
 ```dart
 import 'package:dartssh2/client.dart';
 ```
 </summary>
 <!-- <hr> -->
-<h6>Write the following HTML</h6>
+<h6>TODO</h6>
 
  ```html
-<div class="container">
-    <canvas id="myChart"></canvas>
-</div>
-```
-<h6>... and JS</h6>
-
-```js
-var data = {{ chartJSON | safe }}
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, data);
+TODO
 ```
 </details>
-<!-- </td></tr></tbody></table> -->
+<!-- SERVER EXAMPLE END -->
+
 
 ## Example
 
