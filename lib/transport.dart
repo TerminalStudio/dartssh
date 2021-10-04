@@ -94,7 +94,7 @@ abstract class SSHTransport with SSHDiffieHellman {
   Uri? hostport;
 
   /// Whether compression is supported.
-  bool? compress;
+  final bool compress;
 
   /// Source of randomness, e.g [Random.secure()].
   final Random random;
@@ -186,7 +186,7 @@ abstract class SSHTransport with SSHDiffieHellman {
     this.server, {
     this.identity,
     this.hostport,
-    this.compress,
+    this.compress = false,
     this.forwardLocal,
     this.forwardRemote,
     this.disconnected,
@@ -246,7 +246,7 @@ abstract class SSHTransport with SSHDiffieHellman {
   /// https://tools.ietf.org/html/rfc4253#section-4.2
   void handleConnected() {
     debugPrint?.call('SSHTransport.handleConnected');
-    if (state != SSHTransportState.INIT) throw FormatException('$state');
+    if (state != SSHTransportState.INIT) throw StateError('$state');
     socket!.send(verC + '\r\n');
     tracePrint?.call('-> $hostport $verC');
     if (client) sendKeyExchangeInit(false);
@@ -258,7 +258,7 @@ abstract class SSHTransport with SSHDiffieHellman {
     final kexPref = KEX.preferenceCsv();
     final cipherPref = Cipher.preferenceCsv();
     final macPref = MAC.preferenceCsv();
-    final compressPref = Compression.preferenceCsv(compress! ? 0 : 1);
+    final compressPref = Compression.preferenceCsv(compress ? 0 : 1);
 
     sequenceNumberC2s++;
 
@@ -431,13 +431,13 @@ abstract class SSHTransport with SSHDiffieHellman {
         (compressIdC2s = Compression.preferenceIntersect(
             msg.compressionAlgorithmsClientToServer,
             server!,
-            compress! ? 0 : 1))) {
+            compress ? 0 : 1))) {
       throw FormatException('$hostport: negotiate c2s compression');
     } else if (0 ==
         (compressIdS2c = Compression.preferenceIntersect(
             msg.compressionAlgorithmsServerToClient,
             server!,
-            compress! ? 0 : 1))) {
+            compress ? 0 : 1))) {
       throw FormatException('$hostport: negotiate s2c compression');
     }
 
@@ -614,7 +614,8 @@ abstract class SSHTransport with SSHDiffieHellman {
 
   /// https://tools.ietf.org/html/rfc4254#section-4
   void handleMSG_GLOBAL_REQUEST(MSG_GLOBAL_REQUEST msg) {
-    tracePrint?.call('<- $hostport: MSG_GLOBAL_REQUEST request=${msg.request}');
+    tracePrint?.call('<- $hostport: $msg');
+    // writeClearOrEncrypted(MSG_REQUEST_FAILURE())
   }
 
   /// The recipient MUST NOT accept any data after receiving MSG_DISCONNECT.

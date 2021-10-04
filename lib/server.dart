@@ -27,37 +27,40 @@ class SSHServer extends SSHTransport {
   ChannelRequest? sessionChannelRequest;
   GexRequest? gexRequest;
 
-  SSHServer(Identity hostkey,
-      {Uri? hostport,
-      bool compress = false,
-      List<Forward>? forwardLocal,
-      List<Forward>? forwardRemote,
-      VoidCallback? disconnected,
-      ResponseCallback? response,
-      StringCallback? print,
-      StringCallback? debugPrint,
-      StringCallback? tracePrint,
-      SocketInterface? socket,
-      Random? random,
-      SecureRandom? secureRandom,
-      this.directTcpRequest,
-      this.userAuthRequest,
-      this.sessionChannelRequest,
-      this.gexRequest})
-      : super(true,
-            identity: hostkey,
-            hostport: hostport,
-            compress: compress,
-            forwardLocal: forwardLocal,
-            forwardRemote: forwardRemote,
-            disconnected: disconnected,
-            response: response,
-            print: print,
-            debugPrint: debugPrint,
-            tracePrint: tracePrint,
-            socket: socket,
-            random: random,
-            secureRandom: secureRandom) {
+  SSHServer(
+    Identity hostkey, {
+    Uri? hostport,
+    bool compress = false,
+    List<Forward>? forwardLocal,
+    List<Forward>? forwardRemote,
+    VoidCallback? disconnected,
+    required ResponseCallback response,
+    StringCallback? print,
+    StringCallback? debugPrint,
+    StringCallback? tracePrint,
+    SocketInterface? socket,
+    Random? random,
+    SecureRandom? secureRandom,
+    this.directTcpRequest,
+    this.userAuthRequest,
+    this.sessionChannelRequest,
+    this.gexRequest,
+  }) : super(
+          true,
+          identity: hostkey,
+          hostport: hostport,
+          compress: compress,
+          forwardLocal: forwardLocal,
+          forwardRemote: forwardRemote,
+          disconnected: disconnected,
+          response: response,
+          print: print,
+          debugPrint: debugPrint,
+          tracePrint: tracePrint,
+          socket: socket,
+          random: random,
+          secureRandom: secureRandom,
+        ) {
     onConnected();
   }
 
@@ -285,7 +288,7 @@ class SSHServer extends SSHTransport {
   @override
   void handleChannelData(Channel channel, Uint8List data) {
     if (channel == sessionChannel) {
-      response!(this, data);
+      response?.call(this, data);
     } else if (channel.cb != null) {
       channel.cb!(channel, data);
     }
@@ -326,8 +329,14 @@ class SSHServer extends SSHTransport {
         connected: connected)
       ..agentChannel = true;
     nextChannelId++;
-    writeCipher(MSG_CHANNEL_OPEN(
-        'auth-agent@openssh.com', chan.localId, chan.windowS, maxPacketSize));
+    writeCipher(
+      MSG_CHANNEL_OPEN(
+        'auth-agent@openssh.com',
+        chan.localId,
+        chan.windowS,
+        maxPacketSize,
+      ),
+    );
     return chan;
   }
 }

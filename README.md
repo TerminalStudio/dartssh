@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/dartssh.svg)](https://pub.dartlang.org/packages/dartssh) [![Build Status](https://travis-ci.org/GreenAppers/dartssh.svg?branch=master)](https://travis-ci.org/GreenAppers/dartssh) [![Coverage Status](https://coveralls.io/repos/github/GreenAppers/dartssh/badge.svg?branch=master)](https://coveralls.io/github/GreenAppers/dartssh?branch=master) [![documentation](https://img.shields.io/badge/Documentation-dartssh-blue.svg)](https://www.dartdocs.org/documentation/dartssh/latest/)
 
-`dartssh2`  is a fork of `dartssh`, the pure Dart SSH implementation, with bug fixes, up-to-date dependencies and sound null safety.
+`dartssh2`  is a pure dart SSH implementation based on dartssh with bug fixes, up-to-date dependencies and sound null safety.
 
 `dartssh2` providing first-class tunnelling primitives.
 
@@ -16,7 +16,13 @@
 | **MAC**                    | MD5, SHA                        |
 | **Compression**            | not yet supported               |
 | **Forwarding**             | TCP/IP, Agent                   |
-| **Tunneling** drop-ins for | Socket, WebSocket, package:http |
+| **Tunneling drop-ins** for | Socket, WebSocket, package:http |
+
+## Try
+
+```sh
+dart pub global activate dartssh2
+```
 
 ## Quick start - SSH client
 
@@ -83,6 +89,14 @@ var myChart = new Chart(ctx, data);
 SSH client: [example/dartssh.dart](example/dartssh.dart)
 
 SSH server: [example/dartsshs.dart](example/dartsshs.dart)
+
+## References
+
+- [`RFC 4251`](https://datatracker.ietf.org/doc/html/rfc4251) The Secure Shell (SSH) Protocol Architecture
+- [`RFC 4252`](https://datatracker.ietf.org/doc/html/rfc4252) The Secure Shell (SSH) Authentication Protocol
+- [`RFC 4253`](https://datatracker.ietf.org/doc/html/rfc4253) The Secure Shell (SSH) Transport Layer Protocol
+- [`RFC 4254`](https://datatracker.ietf.org/doc/html/rfc4254) The Secure Shell (SSH) Connection Protocol
+
 ## Credits
 
 https://github.com/GreenAppers/dartssh by GreenAppers

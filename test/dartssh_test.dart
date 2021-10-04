@@ -61,10 +61,12 @@ void main() {
   test('TestSocket', () {
     TestSocket socket = TestSocket();
     SSHClient ssh = SSHClient(
-        socketInput: socket,
-        print: print,
-        debugPrint: print,
-        tracePrint: print);
+      login: 'whoever',
+      socketInput: socket,
+      print: print,
+      debugPrint: print,
+      tracePrint: print,
+    );
     socket.connect(Uri.parse('tcp://foobar:22'), ssh.onConnected, (_) {});
     expect(socket.sent.removeFirst(), 'SSH-2.0-dartssh_1.0\r\n');
     ssh.disconnect('done');
